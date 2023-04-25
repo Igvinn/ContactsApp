@@ -16,5 +16,17 @@ namespace ContactsApp.View
         {
             InitializeComponent();
         }
+
+        private void AddPhotoButton_MouseEnter(object sender, EventArgs e)
+        {
+            AddPhotoButton.Image = Properties.Resources.add_photo_32x32;
+            AddPhotoButton.BackColor = ColorTranslator.FromHtml("#F5F5FF");
+        }
+
+        private void AddPhotoButton_MouseLeave(object sender, EventArgs e)
+        {
+            AddPhotoButton.Image = Properties.Resources.add_photo_32x32_gray;
+            AddPhotoButton.BackColor = Color.White;
+        }
     }
 }

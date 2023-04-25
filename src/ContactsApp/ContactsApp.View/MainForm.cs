@@ -17,9 +17,72 @@ namespace ContactsApp.View
             InitializeComponent();
         }
 
+        private void AddContactButton_Click(object sender, EventArgs e)
+        {
+            var form = new ContactForm();
+            form.ShowDialog();
+        }
+
+        private void AddContactButton_MouseEnter(object sender, EventArgs e)
+        {
+            AddContactButton.Image = Properties.Resources.add_contact_32x32;
+            AddContactButton.BackColor = ColorTranslator.FromHtml("#F5F5FF");
+        }
+
+        private void AddContactButton_MouseLeave(object sender, EventArgs e)
+        {
+            AddContactButton.Image = Properties.Resources.add_contact_32x32_gray;
+            AddContactButton.BackColor = Color.White;
+        }
+
+        private void RemoveContactButton_MouseEnter(object sender, EventArgs e)
+        {
+            RemoveContactButton.Image = Properties.Resources.remove_contact_32x32;
+            RemoveContactButton.BackColor = ColorTranslator.FromHtml("#FAF5F5");
+        }
+
+        private void RemoveContactButton_MouseLeave(object sender, EventArgs e)
+        {
+            RemoveContactButton.Image = Properties.Resources.remove_contact_32x32_gray;
+            RemoveContactButton.BackColor = Color.White;
+        }
+
+        private void EditContactButton_MouseEnter(object sender, EventArgs e)
+        {
+            EditContactButton.Image = Properties.Resources.edit_contact_32x32;
+            EditContactButton.BackColor = ColorTranslator.FromHtml("#F5F5FF");
+        }
+
+        private void EditContactButton_MouseLeave(object sender, EventArgs e)
+        {
+            EditContactButton.Image = Properties.Resources.edit_contact_32x32_gray;
+            EditContactButton.BackColor = Color.White;
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainForm_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void RightPanel_Click(object sender, EventArgs e)
+        {
+            var form = new AboutForm();
+            form.ShowDialog();
+        }
+
+        private void FullNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void EmailTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }
