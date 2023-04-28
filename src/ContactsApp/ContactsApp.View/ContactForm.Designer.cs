@@ -41,7 +41,7 @@
             this.ButtonPanelBackground = new System.Windows.Forms.Panel();
             this.OKButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.DateOfBirthDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.AddPhotoButton = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PhotoPictureBox)).BeginInit();
             this.ButtonPanelBackground.SuspendLayout();
@@ -170,12 +170,12 @@
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
             // 
-            // dateTimePicker1
+            // DateOfBirthDateTimePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(118, 190);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(175, 20);
-            this.dateTimePicker1.TabIndex = 23;
+            this.DateOfBirthDateTimePicker.Location = new System.Drawing.Point(118, 190);
+            this.DateOfBirthDateTimePicker.Name = "DateOfBirthDateTimePicker";
+            this.DateOfBirthDateTimePicker.Size = new System.Drawing.Size(175, 20);
+            this.DateOfBirthDateTimePicker.TabIndex = 23;
             // 
             // AddPhotoButton
             // 
@@ -195,7 +195,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(514, 311);
             this.Controls.Add(this.AddPhotoButton);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.DateOfBirthDateTimePicker);
             this.Controls.Add(this.ButtonPanelBackground);
             this.Controls.Add(this.VKTextBox);
             this.Controls.Add(this.VKLabel);
@@ -207,6 +207,8 @@
             this.Controls.Add(this.FullNameTextBox);
             this.Controls.Add(this.FullNameLabel);
             this.Controls.Add(this.PhotoPictureBox);
+            this.MaximumSize = new System.Drawing.Size(530, 350);
+            this.MinimumSize = new System.Drawing.Size(530, 350);
             this.Name = "ContactForm";
             this.ShowIcon = false;
             ((System.ComponentModel.ISupportInitialize)(this.PhotoPictureBox)).EndInit();
@@ -232,7 +234,7 @@
         private System.Windows.Forms.Panel ButtonPanelBackground;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker DateOfBirthDateTimePicker;
         private System.Windows.Forms.PictureBox AddPhotoButton;
     }
 }

@@ -192,6 +192,8 @@
             this.Controls.Add(this.AuthorLabel);
             this.Controls.Add(this.VLabel);
             this.Controls.Add(this.ContactsAppLabel);
+            this.MaximumSize = new System.Drawing.Size(530, 440);
+            this.MinimumSize = new System.Drawing.Size(530, 440);
             this.Name = "AboutForm";
             this.ShowIcon = false;
             this.Load += new System.EventHandler(this.AboutForm_Load);

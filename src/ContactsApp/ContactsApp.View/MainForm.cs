@@ -69,12 +69,6 @@ namespace ContactsApp.View
            
         }
 
-        private void RightPanel_Click(object sender, EventArgs e)
-        {
-            var form = new AboutForm();
-            form.ShowDialog();
-        }
-
         private void FullNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
@@ -83,6 +77,15 @@ namespace ContactsApp.View
         private void EmailTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void MainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                var form = new AboutForm();
+                form.ShowDialog();
+            };
         }
     }
 }

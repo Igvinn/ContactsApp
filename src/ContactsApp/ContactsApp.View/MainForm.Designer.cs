@@ -44,7 +44,7 @@
             this.BirthdayPanelCloseButton = new System.Windows.Forms.Button();
             this.BirthdaySurnamesLabel = new System.Windows.Forms.Label();
             this.TodayIsBirthdayOfLabel = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.InfoPictureBox = new System.Windows.Forms.PictureBox();
             this.VKTextBox = new System.Windows.Forms.TextBox();
             this.VKLabel = new System.Windows.Forms.Label();
             this.DateOfBirthTextBox = new System.Windows.Forms.TextBox();
@@ -65,7 +65,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.EditContactButton)).BeginInit();
             this.RightPanel.SuspendLayout();
             this.BirthdayPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PhotoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,7 +107,7 @@
             this.ButtonsTableLayoutPanel.Controls.Add(this.AddContactButton, 0, 0);
             this.ButtonsTableLayoutPanel.Controls.Add(this.RemoveContactButton, 2, 0);
             this.ButtonsTableLayoutPanel.Controls.Add(this.EditContactButton, 1, 0);
-            this.ButtonsTableLayoutPanel.Location = new System.Drawing.Point(3, 366);
+            this.ButtonsTableLayoutPanel.Location = new System.Drawing.Point(6, 366);
             this.ButtonsTableLayoutPanel.Name = "ButtonsTableLayoutPanel";
             this.ButtonsTableLayoutPanel.RowCount = 1;
             this.ButtonsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -165,7 +165,7 @@
             // 
             // FindTextBox
             // 
-            this.FindTextBox.Location = new System.Drawing.Point(39, 3);
+            this.FindTextBox.Location = new System.Drawing.Point(42, 3);
             this.FindTextBox.Name = "FindTextBox";
             this.FindTextBox.Size = new System.Drawing.Size(202, 20);
             this.FindTextBox.TabIndex = 1;
@@ -187,7 +187,7 @@
             "Добрынин Николай"});
             this.ContactsListBox.Location = new System.Drawing.Point(6, 29);
             this.ContactsListBox.Name = "ContactsListBox";
-            this.ContactsListBox.Size = new System.Drawing.Size(238, 334);
+            this.ContactsListBox.Size = new System.Drawing.Size(238, 337);
             this.ContactsListBox.TabIndex = 0;
             // 
             // RightPanel
@@ -209,7 +209,6 @@
             this.RightPanel.Name = "RightPanel";
             this.RightPanel.Size = new System.Drawing.Size(533, 404);
             this.RightPanel.TabIndex = 1;
-            this.RightPanel.Click += new System.EventHandler(this.RightPanel_Click);
             // 
             // BirthdayPanel
             // 
@@ -219,8 +218,8 @@
             this.BirthdayPanel.Controls.Add(this.BirthdayPanelCloseButton);
             this.BirthdayPanel.Controls.Add(this.BirthdaySurnamesLabel);
             this.BirthdayPanel.Controls.Add(this.TodayIsBirthdayOfLabel);
-            this.BirthdayPanel.Controls.Add(this.pictureBox2);
-            this.BirthdayPanel.Location = new System.Drawing.Point(3, 297);
+            this.BirthdayPanel.Controls.Add(this.InfoPictureBox);
+            this.BirthdayPanel.Location = new System.Drawing.Point(3, 321);
             this.BirthdayPanel.Name = "BirthdayPanel";
             this.BirthdayPanel.Size = new System.Drawing.Size(527, 80);
             this.BirthdayPanel.TabIndex = 11;
@@ -259,15 +258,15 @@
             this.TodayIsBirthdayOfLabel.TabIndex = 1;
             this.TodayIsBirthdayOfLabel.Text = "Today is Birthday of:";
             // 
-            // pictureBox2
+            // InfoPictureBox
             // 
-            this.pictureBox2.Image = global::ContactsApp.View.Properties.Resources.info_48x48;
-            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(75, 75);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
+            this.InfoPictureBox.Image = global::ContactsApp.View.Properties.Resources.info_48x48;
+            this.InfoPictureBox.Location = new System.Drawing.Point(3, 3);
+            this.InfoPictureBox.Name = "InfoPictureBox";
+            this.InfoPictureBox.Size = new System.Drawing.Size(75, 75);
+            this.InfoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.InfoPictureBox.TabIndex = 0;
+            this.InfoPictureBox.TabStop = false;
             // 
             // VKTextBox
             // 
@@ -385,11 +384,13 @@
             this.ClientSize = new System.Drawing.Size(789, 410);
             this.Controls.Add(this.MainTableLayoutPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "ContactsApp";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Click += new System.EventHandler(this.MainForm_Click);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             this.MainTableLayoutPanel.ResumeLayout(false);
             this.LeftPanel.ResumeLayout(false);
             this.LeftPanel.PerformLayout();
@@ -401,7 +402,7 @@
             this.RightPanel.PerformLayout();
             this.BirthdayPanel.ResumeLayout(false);
             this.BirthdayPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PhotoPictureBox)).EndInit();
             this.ResumeLayout(false);
 
@@ -419,7 +420,7 @@
         private System.Windows.Forms.Panel BirthdayPanel;
         private System.Windows.Forms.Label BirthdaySurnamesLabel;
         private System.Windows.Forms.Label TodayIsBirthdayOfLabel;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox InfoPictureBox;
         private System.Windows.Forms.TextBox VKTextBox;
         private System.Windows.Forms.Label VKLabel;
         private System.Windows.Forms.TextBox DateOfBirthTextBox;
