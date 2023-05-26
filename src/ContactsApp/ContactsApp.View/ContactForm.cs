@@ -28,5 +28,10 @@ namespace ContactsApp.View
             AddPhotoButton.Image = Properties.Resources.add_photo_32x32_gray;
             AddPhotoButton.BackColor = Color.White;
         }
+
+        private void ContactForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -138,6 +138,7 @@
             this.RemoveContactButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.RemoveContactButton.TabIndex = 2;
             this.RemoveContactButton.TabStop = false;
+            this.RemoveContactButton.Click += new System.EventHandler(this.RemoveContactButton_Click);
             this.RemoveContactButton.MouseEnter += new System.EventHandler(this.RemoveContactButton_MouseEnter);
             this.RemoveContactButton.MouseLeave += new System.EventHandler(this.RemoveContactButton_MouseLeave);
             // 
@@ -151,6 +152,7 @@
             this.EditContactButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.EditContactButton.TabIndex = 3;
             this.EditContactButton.TabStop = false;
+            this.EditContactButton.Click += new System.EventHandler(this.EditContactButton_Click);
             this.EditContactButton.MouseEnter += new System.EventHandler(this.EditContactButton_MouseEnter);
             this.EditContactButton.MouseLeave += new System.EventHandler(this.EditContactButton_MouseLeave);
             // 
@@ -177,18 +179,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ContactsListBox.FormattingEnabled = true;
             this.ContactsListBox.IntegralHeight = false;
-            this.ContactsListBox.Items.AddRange(new object[] {
-            "Абарников Константин",
-            "Балтабаев Егор",
-            "Бальсунов Вячеслав",
-            "Веденин Семен",
-            "Виргунов Михаил",
-            "Голов Станислав",
-            "Добрынин Николай"});
             this.ContactsListBox.Location = new System.Drawing.Point(6, 29);
             this.ContactsListBox.Name = "ContactsListBox";
             this.ContactsListBox.Size = new System.Drawing.Size(238, 337);
             this.ContactsListBox.TabIndex = 0;
+            this.ContactsListBox.SelectedIndexChanged += new System.EventHandler(this.ContactsListBox_SelectedIndexChanged);
             // 
             // RightPanel
             // 
@@ -235,6 +230,7 @@
             this.BirthdayPanelCloseButton.Size = new System.Drawing.Size(32, 32);
             this.BirthdayPanelCloseButton.TabIndex = 3;
             this.BirthdayPanelCloseButton.UseVisualStyleBackColor = true;
+            this.BirthdayPanelCloseButton.Click += new System.EventHandler(this.BirthdayPanelCloseButton_Click);
             // 
             // BirthdaySurnamesLabel
             // 
@@ -329,7 +325,6 @@
             this.EmailTextBox.Size = new System.Drawing.Size(421, 20);
             this.EmailTextBox.TabIndex = 4;
             this.EmailTextBox.Text = "abakumov@no.mail";
-            this.EmailTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EmailTextBox_KeyPress);
             // 
             // EmailLabel
             // 
@@ -388,6 +383,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "ContactsApp";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing_1);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Click += new System.EventHandler(this.MainForm_Click);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);

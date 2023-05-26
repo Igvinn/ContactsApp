@@ -211,6 +211,7 @@
             this.MinimumSize = new System.Drawing.Size(530, 350);
             this.Name = "ContactForm";
             this.ShowIcon = false;
+            this.Load += new System.EventHandler(this.ContactForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PhotoPictureBox)).EndInit();
             this.ButtonPanelBackground.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AddPhotoButton)).EndInit();

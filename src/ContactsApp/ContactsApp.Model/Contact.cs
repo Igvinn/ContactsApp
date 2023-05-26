@@ -105,7 +105,7 @@ namespace ContactsApp.Model
             }
             set
             {
-                if (value.Year <= 1900 || value >= DateTime.Now)
+                if (value.Year < 1900 || value > DateTime.Now)
                 {
                     throw new ArgumentException($"Incorrect year");
                 }
