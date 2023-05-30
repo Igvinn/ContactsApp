@@ -44,6 +44,11 @@ namespace ContactsApp.View
         {
             _project.Contacts.AddRange(RandomContacts.GenerateRandomContactsName());
             Contact contact = new Contact("", "", "8 900 000 00 00", DateTime.Now.AddYears(-20), "");
+            var contactForm = new ContactForm();
+            contactForm.contact = contact;
+            contactForm.ShowDialog();
+            var updatedContact = contactForm.contact;
+            _project.Contacts.Add(updatedContact);
         }
 
         /// <summary>

@@ -34,6 +34,12 @@ namespace ContactsApp.Model
                                             "Михаил", "Станислав" , "Николай"};
 
         /// <summary>
+        /// Поле отчеств
+        /// </summary>
+        private static string[] _arrPatronymic = {"Петрович","Иванович","Николаевич","Васильевич",
+                                             "Дмитриевич","Уланбекович","Игнатович" };
+
+        /// <summary>
         /// Поле ФИО
         /// </summary>
         private static string[] _fullName = new string[10];
@@ -84,7 +90,8 @@ namespace ContactsApp.Model
             for (int i = 0; i < 10; i++)
             {
                 _fullName[i] = _arrSurname[GenerateDigit(_arrSurname.Length)] + " " +
-                    _arrName[GenerateDigit(_arrName.Length)];
+                    _arrName[GenerateDigit(_arrName.Length)] + " " +
+                    _arrPatronymic[GenerateDigit(_arrPatronymic.Length)];
                     
 
             }

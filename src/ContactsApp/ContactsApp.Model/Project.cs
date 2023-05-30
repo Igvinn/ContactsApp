@@ -6,60 +6,45 @@ using System.Threading.Tasks;
 
 namespace ContactsApp.Model
 {
-    /// <summary>
-    /// Описывает проект
-    /// </summary>
+
     public class Project
     {
         /// <summary>
         /// Список контактов в проекте
         /// </summary>
-        public List<Contact> Contacts = new List<Contact>();
+        public List<Contact> Contacts { get; set; } = new List<Contact>();
 
         /// <summary>
         /// Сортирует список по полному имени
         /// </summary>
-        /// <returns>Отсортированный список</returns>
-        public List<Contact> SortContactsByFullName()
+        public List<Contact> SortByFullName(List<Contact> contacts)
         {
-            return Contacts.OrderBy(c => c.FullName).ToList();
+            var orderByContact = contacts.OrderBy(contact => contact.FullName).ToList();
+            return orderByContact;
         }
 
         /// <summary>
-        /// Находит контакты у которых сегодня день рождения
+        /// Возвращает список объектов <see cref="Contact">, одно из полей которых 
+        /// содержит подаваемый паттерн.
         /// </summary>
-        /// <returns>Список именинников</returns>
-        public List<Contact> FindBirthdaysContacts()
+        public List<Contact> SearchContactsByPattern(List<Contact> contacts, string pattern)
         {
-            DateTime today = DateTime.Now;
-            List<Contact> result = new List<Contact>();
-            foreach (Contact contact in Contacts)
+            if (pattern != "")
             {
-                if ((contact.DateOfBirth.Month == today.Month) &&
-                (contact.DateOfBirth.Day == today.Day))
-                {
-                    result.Add(contact);
-                }
+                var selectedContact = contacts.Where(contact => contact.FullName.Contains(pattern)).ToList();
+                return selectedContact;
             }
-            return result;
+            else return contacts;
         }
 
         /// <summary>
-        /// Выполняет поиск по подстроке имени
+        /// Возвращает список объектов <see cref="Contact">, чей сегодня день рождения.
         /// </summary>
-        /// <param name="substring">Подстрока имени</param>
-        /// <returns>Список найденных контактов</returns>
-        public List<Contact> FindContacts(string substring)
+        public List<Contact> FindContactByDayOfBirth(List<Contact> contacts)
         {
-            List<Contact> result = new List<Contact>();
-            foreach (Contact contact in Contacts)
-            {
-                if (contact.FullName.Contains(substring))
-                {
-                    result.Add(contact);
-                }
-            }
-            return result;
+            var birthdayContacts = contacts.Where(contact => contact.DateOfBirth.Day == DateTime.Today.Day
+            && contact.DateOfBirth.Month == DateTime.Today.Month).ToList();
+            return birthdayContacts;
         }
     }
 }

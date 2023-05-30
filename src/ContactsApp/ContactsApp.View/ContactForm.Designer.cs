@@ -54,6 +54,7 @@
             this.VKTextBox.Name = "VKTextBox";
             this.VKTextBox.Size = new System.Drawing.Size(175, 20);
             this.VKTextBox.TabIndex = 21;
+            this.VKTextBox.TextChanged += new System.EventHandler(this.VKTextBox_TextChanged);
             // 
             // VKLabel
             // 
@@ -82,6 +83,7 @@
             this.PhoneNumberTextBox.Size = new System.Drawing.Size(175, 20);
             this.PhoneNumberTextBox.TabIndex = 17;
             this.PhoneNumberTextBox.Text = "+7 (999) 111-22-33";
+            this.PhoneNumberTextBox.TextChanged += new System.EventHandler(this.PhoneNumberTextBox_TextChanged);
             // 
             // PhoneNumberLabel
             // 
@@ -102,6 +104,7 @@
             this.EmailTextBox.Size = new System.Drawing.Size(384, 20);
             this.EmailTextBox.TabIndex = 15;
             this.EmailTextBox.Text = "abakumov@no.mail";
+            this.EmailTextBox.TextChanged += new System.EventHandler(this.EmailTextBox_TextChanged);
             // 
             // EmailLabel
             // 
@@ -122,6 +125,7 @@
             this.FullNameTextBox.Size = new System.Drawing.Size(384, 20);
             this.FullNameTextBox.TabIndex = 13;
             this.FullNameTextBox.Text = "Абакумов Дмитрий Николаевич";
+            this.FullNameTextBox.TextChanged += new System.EventHandler(this.FullNameTextBox_TextChanged);
             // 
             // FullNameLabel
             // 
@@ -160,6 +164,7 @@
             this.OKButton.TabIndex = 1;
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
+            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
             // CancelButton
             // 
@@ -169,6 +174,7 @@
             this.CancelButton.TabIndex = 0;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // DateOfBirthDateTimePicker
             // 
@@ -176,6 +182,7 @@
             this.DateOfBirthDateTimePicker.Name = "DateOfBirthDateTimePicker";
             this.DateOfBirthDateTimePicker.Size = new System.Drawing.Size(175, 20);
             this.DateOfBirthDateTimePicker.TabIndex = 23;
+            this.DateOfBirthDateTimePicker.ValueChanged += new System.EventHandler(this.DateOfBirthDateTimePicker_ValueChanged);
             // 
             // AddPhotoButton
             // 

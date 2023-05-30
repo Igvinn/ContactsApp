@@ -77,6 +77,12 @@ namespace ContactsApp.Model
         }
 
         /// <summary>
+        /// Постоянная шаблона телефонного номера
+        /// Пример: 8(999)999-99-99
+        /// </summary>
+        private const string phoneNumberPattren = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
+
+        /// <summary>
         /// Возвращает или задает номер телефона контакта
         /// </summary>
         public string PhoneNumber
@@ -87,7 +93,7 @@ namespace ContactsApp.Model
             }
             set
             {
-                if (!Regex.IsMatch(value, @"[\d\s\+\-\(\)]"))
+                if (!Regex.IsMatch(value, phoneNumberPattren))
                     throw new ArgumentOutOfRangeException("Invalid phone format. " +
                         "For example: +7 926 123 45 67");
                 _phoneNumber = value;
