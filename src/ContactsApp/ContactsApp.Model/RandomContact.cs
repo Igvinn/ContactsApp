@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace ContactsApp.Model
 {
-    /// <summary>
-    /// Класс генерации случайных контактов
-    /// </summary>
     public class RandomContacts
     {
         /// <summary>
@@ -25,7 +22,7 @@ namespace ContactsApp.Model
         /// Поле фамилий
         /// </summary>
         private static string[] _arrSurname = {"Абарников", "Балтабаев", "Бальсунов", "Веденин",
-                                               "Виргунов", "Голов", "Добрынин" };
+                                               "Виргунов", "Голов", "Добрынин"};
 
         /// <summary>
         /// Поле имен
@@ -33,16 +30,18 @@ namespace ContactsApp.Model
         private static string[] _arrName = {"Константин", "Егор", "Вячеслав", "Семен",
                                             "Михаил", "Станислав" , "Николай"};
 
+
+
         /// <summary>
         /// Поле отчеств
         /// </summary>
-        private static string[] _arrPatronymic = {"Петрович","Иванович","Николаевич","Васильевич",
-                                             "Дмитриевич","Уланбекович","Игнатович" };
+        private static string[] _arrPatronymic = {"Васильевич","Викторович","Петрович","Максимович",
+                                                  "Иванович","Константинович","Игнатович"};
 
         /// <summary>
         /// Поле ФИО
         /// </summary>
-        private static string[] _fullName = new string[10];
+        private static string[] _fullName = new string[7];
 
         /// <summary>
         /// Поле Email
@@ -86,13 +85,12 @@ namespace ContactsApp.Model
         /// <param name="randomContacts"></param>
         public static List<Contact> GenerateRandomContactsName()
         {
-            _project.Contacts.Clear();
+            _project._contactsList.Clear();
             for (int i = 0; i < 10; i++)
             {
                 _fullName[i] = _arrSurname[GenerateDigit(_arrSurname.Length)] + " " +
                     _arrName[GenerateDigit(_arrName.Length)] + " " +
                     _arrPatronymic[GenerateDigit(_arrPatronymic.Length)];
-                    
 
             }
 
@@ -100,12 +98,12 @@ namespace ContactsApp.Model
             {
                 Contact contact = new Contact(_fullName[GenerateDigit(_fullName.Length)],
                 _email[GenerateDigit(_email.Length)],
-                    _phone[GenerateDigit(_phone.Length)], DateTime.Now.AddYears(-20),
+                    _phone[GenerateDigit(_phone.Length)], DateTime.Now.AddYears(-15),
                     _idVk[GenerateDigit(_idVk.Length)]);
 
-                _project.Contacts.Add(contact);
+                _project._contactsList.Add(contact);
             }
-            return _project.Contacts;
+            return _project._contactsList;
         }
     }
 }

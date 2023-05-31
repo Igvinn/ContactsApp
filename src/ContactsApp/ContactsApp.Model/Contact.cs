@@ -26,7 +26,7 @@ namespace ContactsApp.Model
         /// <summary>
         /// Номер телефона контакта
         /// </summary>
-        private string _phoneNumber;
+        private string _phone;
 
         /// <summary>
         /// Дата рождения контакта
@@ -37,6 +37,12 @@ namespace ContactsApp.Model
         /// ID Вконтакте контакта
         /// </summary>
         private string _vkId;
+
+        /// <summary>
+        /// Постоянная шаблона телефонного номера
+        /// Пример: 8(999)999-99-99
+        /// </summary>
+        private const string phoneNumberPattren = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
 
         /// <summary>
         /// Возвращает или задает полное имя контакта
@@ -53,6 +59,8 @@ namespace ContactsApp.Model
                     throw new ArgumentOutOfRangeException("Full name" +
                         " can't be longer than 100 characters");
                 _fullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower());
+
+
             }
         }
 
@@ -67,20 +75,13 @@ namespace ContactsApp.Model
             }
             set
             {
-                if (value.Length >= 100)
-                {
-                    throw new ArgumentException($"Contact's email must be less" +
-                    $" than {_email.Length}");
-                }
+                if (value.Length > 100)
+                    throw new ArgumentOutOfRangeException("Email can't be longer than" +
+                        " 100 characters");
                 _email = value;
+
             }
         }
-
-        /// <summary>
-        /// Постоянная шаблона телефонного номера
-        /// Пример: 8(999)999-99-99
-        /// </summary>
-        private const string phoneNumberPattren = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
 
         /// <summary>
         /// Возвращает или задает номер телефона контакта
@@ -89,14 +90,16 @@ namespace ContactsApp.Model
         {
             get
             {
-                return _phoneNumber;
+                return _phone;
             }
             set
             {
-                if (!Regex.IsMatch(value, phoneNumberPattren))
-                    throw new ArgumentOutOfRangeException("Invalid phone format. " +
-                        "For example: +7 926 123 45 67");
-                _phoneNumber = value;
+                {
+                    if (!Regex.IsMatch(value, @"[\d\s\+\-\(\)]"))
+                        throw new ArgumentOutOfRangeException("Invalid phone format");
+                    _phone = value;
+                }
+
             }
         }
 
@@ -112,10 +115,9 @@ namespace ContactsApp.Model
             set
             {
                 if (value.Year < 1900 || value > DateTime.Now)
-                {
-                    throw new ArgumentException($"Incorrect year");
-                }
+                    throw new ArgumentOutOfRangeException("Invalid Date of Birth");
                 _dateOfBirth = value;
+
             }
         }
 
@@ -130,12 +132,11 @@ namespace ContactsApp.Model
             }
             set
             {
-                if (value.Length >= 50)
-                {
-                    throw new ArgumentException($"Contact's Vk ID must be less " +
-                    $"than {_vkId.Length}?");
-                }
+                if (value.Length > 50)
+                    throw new ArgumentOutOfRangeException("VK ID " +
+                        "can't be longer than 50 characters");
                 _vkId = value;
+
             }
         }
 
@@ -144,18 +145,22 @@ namespace ContactsApp.Model
         /// </summary>
         /// <param name="fullName"></param>
         /// <param name="email"></param>
-        /// <param name="phoneNumber"></param>
+        /// <param name="phone"></param>
         /// <param name="dateOfBirth"></param>
         /// <param name="vkId"></param>
-        public Contact(string fullName, string email, string phoneNumber,
+        public Contact(string fullName, string email, string phone,
         DateTime dateOfBirth, string vkId)
         {
             FullName = fullName;
             Email = email;
-            PhoneNumber = phoneNumber;
+            PhoneNumber = phone;
             DateOfBirth = dateOfBirth;
             VkId = vkId;
         }
+
+        /// <summary>
+        ///Метод создаюший пустой экземпляр класса Contact
+        /// </summary>
         public Contact()
         {
 
@@ -166,7 +171,7 @@ namespace ContactsApp.Model
         /// </summary>
         public object Clone()
         {
-            return MemberwiseClone();
+            return new Contact(this.FullName, this.Email, this.PhoneNumber, this.DateOfBirth, this.VkId);
         }
     }
 }

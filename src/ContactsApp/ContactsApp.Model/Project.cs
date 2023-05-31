@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace ContactsApp.Model
 {
@@ -12,40 +13,46 @@ namespace ContactsApp.Model
         /// <summary>
         /// Список контактов в проекте
         /// </summary>
-        public List<Contact> Contacts { get; set; } = new List<Contact>();
+        public List<Contact> _contactsList { get; set; } = new List<Contact>();
+
 
         /// <summary>
         /// Сортирует список по полному имени
         /// </summary>
-        public List<Contact> SortByFullName(List<Contact> contacts)
+        public void SortFullNameContacts()
         {
-            var orderByContact = contacts.OrderBy(contact => contact.FullName).ToList();
-            return orderByContact;
+            _contactsList = _contactsList.OrderBy(c => c.FullName).ToList();
         }
 
-        /// <summary>
-        /// Возвращает список объектов <see cref="Contact">, одно из полей которых 
-        /// содержит подаваемый паттерн.
-        /// </summary>
-        public List<Contact> SearchContactsByPattern(List<Contact> contacts, string pattern)
-        {
-            if (pattern != "")
-            {
-                var selectedContact = contacts.Where(contact => contact.FullName.Contains(pattern)).ToList();
-                return selectedContact;
-            }
-            else return contacts;
-        }
 
         /// <summary>
-        /// Возвращает список объектов <see cref="Contact">, чей сегодня день рождения.
+        /// Поиск контакта по подстроке
         /// </summary>
-        public List<Contact> FindContactByDayOfBirth(List<Contact> contacts)
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public List<Contact> FindContactsContainingString(string str)
         {
-            var birthdayContacts = contacts.Where(contact => contact.DateOfBirth.Day == DateTime.Today.Day
-            && contact.DateOfBirth.Month == DateTime.Today.Month).ToList();
-            return birthdayContacts;
+            return _contactsList.Where(c =>
+            c.FullName.Contains(str) ||
+            c.Email.Contains(str) ||
+            c.PhoneNumber.Contains(str) ||
+            c.VkId.Contains(str)).
+            ToList();
         }
+
+
+        /// <summary>
+        /// Поиск дней рождлений
+        /// </summary>
+        /// <returns></returns>
+        public List<Contact> FindBirthdaysToday()
+        {
+            var now = DateTime.Now;
+            return _contactsList.Where(c =>
+            c.DateOfBirth.Month == now.Month &&
+            c.DateOfBirth.Day == now.Day).
+            ToList();
+        }
+
     }
 }
-
