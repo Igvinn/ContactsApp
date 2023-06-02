@@ -30,14 +30,15 @@ namespace ContactsApp.Model
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public List<Contact> FindContactsContainingString(string str)
+        public List<Contact> FindContactsBySubstring(List<Contact> contacts, string substring)
         {
-            return _contactsList.Where(c =>
-            c.FullName.Contains(str) ||
-            c.Email.Contains(str) ||
-            c.PhoneNumber.Contains(str) ||
-            c.VkId.Contains(str)).
+            var NewContacts = contacts.Where(c =>
+            c.FullName.Contains(substring) ||
+            c.Email.Contains(substring) ||
+            c.PhoneNumber.Contains(substring) ||
+            c.VkId.Contains(substring)).
             ToList();
+            return NewContacts;
         }
 
 

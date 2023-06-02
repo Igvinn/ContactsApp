@@ -15,7 +15,7 @@ namespace ContactsApp.View
 {
     public partial class MainForm : Form
     {
-        private List<Contact> listContact = new List<Contact>();
+        private List<Contact> ContactsAfterSearch = new List<Contact>();
 
         /// <summary>
         /// Инициализация поля класса Project
@@ -23,9 +23,24 @@ namespace ContactsApp.View
         private Project _project = new Project();
 
         /// <summary>
-        /// Создание объекта случайной генерации
+        /// Список для хранения людей с днями рождения
         /// </summary>
-        Random random = new Random();
+        private List<Contact> ContactsBirthday = new List<Contact>();
+
+        /// <summary>
+        /// Цвет кнопки при наведении на неё
+        /// </summary>
+        private string _mouseEnterColor = "#F5F5FF";
+
+        /// <summary>
+        /// Цвет кнопки удаления при наведении на неё
+        /// </summary>
+        private string _removeButtonColor = "#FAF5F5";
+
+        /// <summary>
+        /// Цвет бездействия на кнопке
+        /// </summary>
+        private Color _colorOfInactivity = Color.White;
 
         /// <summary>
         /// Метод по обновлению списка контактов
@@ -33,11 +48,19 @@ namespace ContactsApp.View
         private void UpdateListBox()
         {
             ContactsListBox.Items.Clear();
+            _project.SortFullNameContacts();
+            ContactsAfterSearch = _project._contactsList;
             foreach (Contact i in _project._contactsList)
             {
                 ContactsListBox.Items.Add(i.FullName);
             }
-
+            ContactsBirthday = _project.FindBirthdaysToday();
+            if (ContactsBirthday.Count >= 3)
+            {
+                BirthdaySurnamesLabel.Text = ContactsBirthday[0].FullName + ", "
+                    + ContactsBirthday[1].FullName + ", "
+                    + ContactsBirthday[2].FullName + " и др.";
+            }
         }
 
         /// <summary>
@@ -46,18 +69,17 @@ namespace ContactsApp.View
         /// <param name="index"></param>
         private void EditContact(int index)
         {
-            var noteToEdit = (Contact)_project._contactsList[index].Clone();
-            var editWindow = new ContactForm();
-            editWindow.contact = noteToEdit;
-            editWindow.ShowDialog();
-            if (editWindow.DialogResult == DialogResult.OK)
+            var editContact = (Contact)_project._contactsList[index].Clone();
+            var Form = new ContactForm();
+            Form.contact = editContact;
+            Form.ShowDialog();
+            if (Form.DialogResult == DialogResult.OK)
             {
-                var updatedContact = editWindow.contact;
-                _project._contactsList[index] = editWindow.contact;
+                var updatedContact = Form.contact;
+                _project._contactsList[index] = Form.contact;
                 _project._contactsList.RemoveAt(index);
                 _project._contactsList.Insert(index, updatedContact);
             }
-
         }
 
 
@@ -73,6 +95,7 @@ namespace ContactsApp.View
             {
                 _project._contactsList.Add(updatedContact);
             }
+            RandomContacts.GenerateContacts(_project, 5);     
         }
 
         /// <summary>
@@ -236,7 +259,13 @@ namespace ContactsApp.View
 
         private void FindTextBox_TextChanged(object sender, EventArgs e)
         {
-            UpdateListBox();
+            string Text = FindTextBox.Text;
+            ContactsAfterSearch = _project.FindContactsBySubstring(_project._contactsList, Text);
+            ContactsListBox.Items.Clear();
+            foreach (Contact contact in ContactsAfterSearch)
+            {
+                ContactsListBox.Items.Add(contact.FullName);
+            }
         }
     }
 }
