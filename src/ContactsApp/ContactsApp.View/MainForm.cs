@@ -146,10 +146,13 @@ namespace ContactsApp.View
         public MainForm()
         {
             InitializeComponent();
+            _project = ProjectSerializer.LoadFromFile();
+            UpdateListBox();
         }
         private void AddContactButton_Click(object sender, EventArgs e)
         {
             AddContact();
+            ProjectSerializer.SaveToFile(_project);
             UpdateListBox();
         }
 
@@ -191,7 +194,7 @@ namespace ContactsApp.View
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         private void MainForm_Click(object sender, EventArgs e)
@@ -222,12 +225,14 @@ namespace ContactsApp.View
         private void RemoveContactButton_Click(object sender, EventArgs e)
         {
             RemoveContact(ContactsListBox.SelectedIndex);
+            ProjectSerializer.SaveToFile(_project);
             UpdateListBox();
         }
 
         private void EditContactButton_Click(object sender, EventArgs e)
         {
             EditContact(ContactsListBox.SelectedIndex);
+            ProjectSerializer.SaveToFile(_project);
             UpdateListBox();
         }
 
