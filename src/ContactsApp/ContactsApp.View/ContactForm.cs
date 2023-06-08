@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace ContactsApp.View
 {
+    /// <summary>
+    /// Класс второстепенной формы
+    /// </summary>
     public partial class ContactForm : Form
     {
         /// <summary>
@@ -64,11 +67,8 @@ namespace ContactsApp.View
         public Contact contact
         {
             get { return _contact; }
-
             set { _contact = value; }
         }
-
-
 
         public ContactForm()
         {
@@ -77,8 +77,6 @@ namespace ContactsApp.View
             _contact.PhoneNumber = "8 800 000 00 00";
             _contact.DateOfBirth = DateTime.Now;
             UpdateForm();
-
-
         }
 
         /// <summary>
@@ -113,8 +111,8 @@ namespace ContactsApp.View
                 return false;
             }
             else return true;
-
         }
+
         /// <summary>
         /// Заполнение данных в экземпляр 
         /// </summary>
@@ -126,32 +124,17 @@ namespace ContactsApp.View
             contact.Email = EmailTextBox.Text;
             contact.DateOfBirth = DateOfBirthDateTimePicker.Value;
             contact.VkId = VKTextBox.Text;
-
-        }
-
-
-        private void AddPhotoButton_MouseEnter(object sender, EventArgs e)
-        {
-            AddPhotoButton.Image = Properties.Resources.add_photo_32x32;
-            AddPhotoButton.BackColor = ColorTranslator.FromHtml("#F5F5FF");
-        }
-
-        private void AddPhotoButton_MouseLeave(object sender, EventArgs e)
-        {
-            AddPhotoButton.Image = Properties.Resources.add_photo_32x32_gray;
-            AddPhotoButton.BackColor = Color.White;
-        }
-
-        private void ContactForm_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            CheckFormOnErrors();
-            UpdateContact();
-            Close();
+            DialogResult = DialogResult.OK;
+            if (CheckFormOnErrors() == true)
+            {
+                UpdateContact();
+                Close();
+            }
+            else { DialogResult = DialogResult.Cancel; };
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -164,12 +147,12 @@ namespace ContactsApp.View
             {
                 _fullNameError = null;
                 _contact.FullName = FullNameTextBox.Text;
-                FullNameTextBox.BackColor = Color.White;
+                FullNameTextBox.BackColor = _correctColor;
             }
             catch (Exception exception)
             {
                 _fullNameError = exception.Message;
-                FullNameTextBox.BackColor = Color.LightPink;
+                FullNameTextBox.BackColor = _errorColor;
             }
         }
 
@@ -179,12 +162,12 @@ namespace ContactsApp.View
             {
                 _emailError = null;
                 _contact.Email = EmailTextBox.Text;
-                EmailTextBox.BackColor = Color.White;
+                EmailTextBox.BackColor = _correctColor;
             }
             catch (Exception exception)
             {
                 _emailError = exception.Message;
-                EmailTextBox.BackColor = Color.LightPink;
+                EmailTextBox.BackColor = _errorColor;
             }
         }
 
@@ -194,12 +177,12 @@ namespace ContactsApp.View
             {
                 _phoneNumberError = null;
                 _contact.PhoneNumber = PhoneNumberTextBox.Text;
-                PhoneNumberTextBox.BackColor = Color.White;
+                PhoneNumberTextBox.BackColor = _correctColor;
             }
             catch (Exception exception)
             {
                 _phoneNumberError = exception.Message;
-                PhoneNumberTextBox.BackColor = Color.LightPink;
+                PhoneNumberTextBox.BackColor = _errorColor;
             }
         }
 
@@ -209,12 +192,12 @@ namespace ContactsApp.View
             {
                 _vKError = null;
                 _contact.VkId = VKTextBox.Text;
-                VKTextBox.BackColor = Color.White;
+                VKTextBox.BackColor = _correctColor;
             }
             catch (Exception exception)
             {
                 _vKError = exception.Message;
-                VKTextBox.BackColor = Color.LightPink;
+                VKTextBox.BackColor = _errorColor;
             }
         }
 
@@ -229,6 +212,18 @@ namespace ContactsApp.View
             {
                 _dateOfBirthError = exception.Message;
             }
+        }
+
+        private void AddPhotoButton_MouseEnter(object sender, EventArgs e)
+        {
+            AddPhotoButton.Image = Properties.Resources.add_photo_32x32;
+            AddPhotoButton.BackColor = ColorTranslator.FromHtml("#F5F5FF");
+        }
+
+        private void AddPhotoButton_MouseLeave(object sender, EventArgs e)
+        {
+            AddPhotoButton.Image = Properties.Resources.add_photo_32x32_gray;
+            AddPhotoButton.BackColor = Color.White;
         }
     }
 }

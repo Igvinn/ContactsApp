@@ -50,7 +50,7 @@ namespace ContactsApp.Model
                     emails[randIndexEmail],
                     phoneNumbers[randIndexNumber],
                     DateTime.Now, vkIds[randIndexVk]);
-                project._contactsList.Add(contact);
+                project.Сontacts.Add(contact);
             }
         }
 

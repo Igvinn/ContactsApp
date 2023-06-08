@@ -385,8 +385,6 @@
             this.Name = "MainForm";
             this.Text = "ContactsApp";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing_1);
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Click += new System.EventHandler(this.MainForm_Click);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             this.MainTableLayoutPanel.ResumeLayout(false);
             this.LeftPanel.ResumeLayout(false);

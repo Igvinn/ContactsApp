@@ -22,13 +22,13 @@ namespace ContactsApp.Model
         /// <summary>
         /// Поле хранящая путь до каталога
         /// </summary>
-        public static string Directoryname = GetFolderPath(SpecialFolder.ApplicationData)
+        public static string DirectoryName = GetFolderPath(SpecialFolder.ApplicationData)
             + @"\Nosochenko\ContactsApp";
 
         /// <summary>
         /// Поле хранящее путь до файла и его название
         /// </summary>
-        public static string Filename = Directoryname + @"\contactsdata.json";
+        public static string Filename = DirectoryName + @"\contactsdata.json";
 
         /// <summary>
         /// Метод реализующий сохранение данных в json файл
@@ -37,15 +37,15 @@ namespace ContactsApp.Model
         /// <exception cref="ArgumentException"></exception>
         public static void SaveToFile(Project project)
         {
-            if (!Directory.Exists(Directoryname))
+            if (!Directory.Exists(DirectoryName))
             {
-                Directory.CreateDirectory(Directoryname);
+                Directory.CreateDirectory(DirectoryName);
                 if (!File.Exists(Filename))
                 {
-                    FileStream fileWithDataContacts = null;
+                    FileStream fileStream = null;
                     try
                     {
-                        fileWithDataContacts = new FileStream(Filename, FileMode.Create);
+                        fileStream = new FileStream(Filename, FileMode.Create);
                     }
                     catch (Exception)
                     {
@@ -53,7 +53,7 @@ namespace ContactsApp.Model
                     }
                     finally
                     {
-                        fileWithDataContacts.Close();
+                        fileStream.Close();
                     }
                 }
             }

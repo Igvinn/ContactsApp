@@ -15,6 +15,9 @@ namespace ContactsApp.View
 {
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Cписок с актуальными контактами после поиска
+        /// </summary>
         private List<Contact> ContactsAfterSearch = new List<Contact>();
 
         /// <summary>
@@ -28,33 +31,18 @@ namespace ContactsApp.View
         private List<Contact> ContactsBirthday = new List<Contact>();
 
         /// <summary>
-        /// Цвет кнопки при наведении на неё
-        /// </summary>
-        private string _mouseEnterColor = "#F5F5FF";
-
-        /// <summary>
-        /// Цвет кнопки удаления при наведении на неё
-        /// </summary>
-        private string _removeButtonColor = "#FAF5F5";
-
-        /// <summary>
-        /// Цвет бездействия на кнопке
-        /// </summary>
-        private Color _colorOfInactivity = Color.White;
-
-        /// <summary>
         /// Метод по обновлению списка контактов
         /// </summary>
         private void UpdateListBox()
         {
             ContactsListBox.Items.Clear();
             _project.SortFullNameContacts();
-            ContactsAfterSearch = _project._contactsList;
-            foreach (Contact i in _project._contactsList)
+            ContactsAfterSearch = _project.Сontacts;
+            foreach (Contact i in _project.Сontacts)
             {
                 ContactsListBox.Items.Add(i.FullName);
             }
-            ContactsBirthday = _project.FindBirthdaysToday();
+            ContactsBirthday = _project.FindBirthdays();
             if (ContactsBirthday.Count >= 3)
             {
                 BirthdaySurnamesLabel.Text = ContactsBirthday[0].FullName + ", "
@@ -69,19 +57,18 @@ namespace ContactsApp.View
         /// <param name="index"></param>
         private void EditContact(int index)
         {
-            var editContact = (Contact)_project._contactsList[index].Clone();
-            var Form = new ContactForm();
-            Form.contact = editContact;
-            Form.ShowDialog();
-            if (Form.DialogResult == DialogResult.OK)
+            var editContact = (Contact)_project.Сontacts[index].Clone();
+            var form = new ContactForm();
+            form.contact = editContact;
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
             {
-                var updatedContact = Form.contact;
-                _project._contactsList[index] = Form.contact;
-                _project._contactsList.RemoveAt(index);
-                _project._contactsList.Insert(index, updatedContact);
+                var updatedContact = form.contact;
+                _project.Сontacts[index] = form.contact;
+                _project.Сontacts.RemoveAt(index);
+                _project.Сontacts.Insert(index, updatedContact);
             }
         }
-
 
         /// <summary>
         /// Генерация случайных чисел
@@ -93,9 +80,8 @@ namespace ContactsApp.View
             var updatedContact = form.contact;
             if (form.DialogResult == DialogResult.OK)
             {
-                _project._contactsList.Add(updatedContact);
-            }
-            RandomContacts.GenerateContacts(_project, 5);     
+                _project.Сontacts.Add(updatedContact);
+            }    
         }
 
         /// <summary>
@@ -112,7 +98,7 @@ namespace ContactsApp.View
 
             if (result == DialogResult.OK)
             {
-                _project._contactsList.RemoveAt(index);
+                _project.Сontacts.RemoveAt(index);
             }
         }
 
@@ -122,13 +108,12 @@ namespace ContactsApp.View
         /// <param name="index"></param>
         private void UpdateSelectedContact(int index)
         {
-            Contact ContactValue = _project._contactsList[index];
+            Contact ContactValue = _project.Сontacts[index];
             FullNameTextBox.Text = ContactValue.FullName;
             EmailTextBox.Text = ContactValue.Email;
             PhoneNumberTextBox.Text = ContactValue.PhoneNumber;
             DateOfBirthTextBox.Text = ContactValue.DateOfBirth.ToString();
             VKTextBox.Text = ContactValue.VkId;
-
         }
 
         /// <summary>
@@ -149,77 +134,12 @@ namespace ContactsApp.View
             _project = ProjectSerializer.LoadFromFile();
             UpdateListBox();
         }
+
         private void AddContactButton_Click(object sender, EventArgs e)
         {
             AddContact();
             ProjectSerializer.SaveToFile(_project);
             UpdateListBox();
-        }
-
-        private void AddContactButton_MouseEnter(object sender, EventArgs e)
-        {
-            AddContactButton.Image = Properties.Resources.add_contact_32x32;
-            AddContactButton.BackColor = ColorTranslator.FromHtml("#F5F5FF");
-        }
-
-        private void AddContactButton_MouseLeave(object sender, EventArgs e)
-        {
-            AddContactButton.Image = Properties.Resources.add_contact_32x32_gray;
-            AddContactButton.BackColor = Color.White;
-        }
-
-        private void RemoveContactButton_MouseEnter(object sender, EventArgs e)
-        {
-            RemoveContactButton.Image = Properties.Resources.remove_contact_32x32;
-            RemoveContactButton.BackColor = ColorTranslator.FromHtml("#FAF5F5");
-        }
-
-        private void RemoveContactButton_MouseLeave(object sender, EventArgs e)
-        {
-            RemoveContactButton.Image = Properties.Resources.remove_contact_32x32_gray;
-            RemoveContactButton.BackColor = Color.White;
-        }
-
-        private void EditContactButton_MouseEnter(object sender, EventArgs e)
-        {
-            EditContactButton.Image = Properties.Resources.edit_contact_32x32;
-            EditContactButton.BackColor = ColorTranslator.FromHtml("#F5F5FF");
-        }
-
-        private void EditContactButton_MouseLeave(object sender, EventArgs e)
-        {
-            EditContactButton.Image = Properties.Resources.edit_contact_32x32_gray;
-            EditContactButton.BackColor = Color.White;
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void MainForm_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FullNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        private void BirthdayPanelCloseButton_Click(object sender, EventArgs e)
-        {
-            BirthdayPanel.Visible = false;
-        }
-
-
-        private void MainForm_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F1)
-            {
-                var form = new AboutForm();
-                form.ShowDialog();
-            }
         }
 
         private void RemoveContactButton_Click(object sender, EventArgs e)
@@ -265,11 +185,67 @@ namespace ContactsApp.View
         private void FindTextBox_TextChanged(object sender, EventArgs e)
         {
             string Text = FindTextBox.Text;
-            ContactsAfterSearch = _project.FindContactsBySubstring(_project._contactsList, Text);
+            ContactsAfterSearch = _project.FindContacts(_project.Сontacts, Text);
             ContactsListBox.Items.Clear();
             foreach (Contact contact in ContactsAfterSearch)
             {
                 ContactsListBox.Items.Add(contact.FullName);
+                
+            }
+        }
+
+        private void AddContactButton_MouseEnter(object sender, EventArgs e)
+        {
+            AddContactButton.Image = Properties.Resources.add_contact_32x32;
+            AddContactButton.BackColor = ColorTranslator.FromHtml("#F5F5FF");
+        }
+
+        private void AddContactButton_MouseLeave(object sender, EventArgs e)
+        {
+            AddContactButton.Image = Properties.Resources.add_contact_32x32_gray;
+            AddContactButton.BackColor = Color.White;
+        }
+
+        private void RemoveContactButton_MouseEnter(object sender, EventArgs e)
+        {
+            RemoveContactButton.Image = Properties.Resources.remove_contact_32x32;
+            RemoveContactButton.BackColor = ColorTranslator.FromHtml("#FAF5F5");
+        }
+
+        private void RemoveContactButton_MouseLeave(object sender, EventArgs e)
+        {
+            RemoveContactButton.Image = Properties.Resources.remove_contact_32x32_gray;
+            RemoveContactButton.BackColor = Color.White;
+        }
+
+        private void EditContactButton_MouseEnter(object sender, EventArgs e)
+        {
+            EditContactButton.Image = Properties.Resources.edit_contact_32x32;
+            EditContactButton.BackColor = ColorTranslator.FromHtml("#F5F5FF");
+        }
+
+        private void EditContactButton_MouseLeave(object sender, EventArgs e)
+        {
+            EditContactButton.Image = Properties.Resources.edit_contact_32x32_gray;
+            EditContactButton.BackColor = Color.White;
+        }
+
+        private void FullNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void BirthdayPanelCloseButton_Click(object sender, EventArgs e)
+        {
+            BirthdayPanel.Visible = false;
+        }
+
+        private void MainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                var form = new AboutForm();
+                form.ShowDialog();
             }
         }
     }
