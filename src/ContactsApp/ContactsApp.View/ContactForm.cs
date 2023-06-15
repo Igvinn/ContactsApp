@@ -67,7 +67,9 @@ namespace ContactsApp.View
         public Contact contact
         {
             get { return _contact; }
-            set { _contact = value; }
+            set { _contact = value;
+                UpdateForm();
+            }
         }
 
         public ContactForm()

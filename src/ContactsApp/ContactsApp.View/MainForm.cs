@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ContactsApp.Model;
 
-
 namespace ContactsApp.View
 {
     public partial class MainForm : Form
@@ -151,9 +150,14 @@ namespace ContactsApp.View
 
         private void EditContactButton_Click(object sender, EventArgs e)
         {
-            EditContact(ContactsListBox.SelectedIndex);
-            ProjectSerializer.SaveToFile(_project);
-            UpdateListBox();
+           var index = ContactsListBox.SelectedIndex;
+            if (index != -1)
+            {
+                EditContact(index);
+                ProjectSerializer.SaveToFile(_project);
+                UpdateSelectedContact(index);
+                UpdateListBox();
+            }
         }
 
         private void ContactsListBox_SelectedIndexChanged(object sender, EventArgs e)
